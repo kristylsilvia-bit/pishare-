@@ -831,7 +831,7 @@
             <span class="solution-tag">Problem ${idx + 1}</span>
             <button class="copy-btn" onclick="copySolution(${idx}, this)">⧉ Copy</button>
           </div>
-          <div class="problem-statement">${escHtml(p.problem || '')}</div>
+          <div class="problem-statement">${renderMathy(p.problem || '')}</div>
           <div class="steps">
             <div class="steps-label">Step-by-step</div>
             ${stepsHtml}
@@ -840,7 +840,7 @@
             <div class="final-answer-icon">🎯</div>
             <div>
               <div class="final-answer-label">Final Answer</div>
-              <div class="final-answer-value">${p.final_answer || ''}</div>
+              <div class="final-answer-value">${renderMathy(p.final_answer || '')}</div>
             </div>
           </div>
         `;
@@ -933,6 +933,37 @@
       return String(str)
         .replace(/&/g,'&amp;').replace(/</g,'&lt;')
         .replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    /* Render a short field (problem / final answer) that may be LaTeX —
+       handles $…$ delimiters, bare LaTeX, or plain text. Always XSS-safe. */
+    function renderMathy(str) {
+      if (str == null || str === '') return '';
+      const s = String(str);
+      if (!window.katex) return escHtml(s);
+
+      // Contains $…$ or $$…$$ → render each math segment, escape the rest.
+      if (/\$.+?\$/.test(s)) {
+        let out = '', last = 0, m;
+        const re = /\$\$([\s\S]+?)\$\$|\$([^$]+?)\$/g;
+        while ((m = re.exec(s))) {
+          out += escHtml(s.slice(last, m.index));
+          const tex = m[1] != null ? m[1] : m[2];
+          try { out += katex.renderToString(tex, { throwOnError: false, displayMode: m[1] != null }); }
+          catch { out += escHtml(m[0]); }
+          last = re.lastIndex;
+        }
+        return out + escHtml(s.slice(last));
+      }
+
+      // No delimiters but clearly LaTeX (e.g. "x = \frac{3}{2}") → render whole as math.
+      if (/[\\^_{}]/.test(s)) {
+        try { return katex.renderToString(s, { throwOnError: false, displayMode: false }); }
+        catch { return escHtml(s); }
+      }
+
+      // Plain text (e.g. "x = 2 or x = -3", "No solution").
+      return escHtml(s);
     }
 
     function showToast(msg) {
