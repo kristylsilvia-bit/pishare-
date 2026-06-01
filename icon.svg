@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="url(#bg)" rx="112"/>
+
+  <!-- Subtle shine overlay -->
+  <rect width="512" height="256" fill="url(#glow)" rx="112"/>
+
+  <!-- Camera body -->
+  <rect x="108" y="168" width="296" height="220" rx="36" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.5)" stroke-width="10"/>
+
+  <!-- Camera lens ring -->
+  <circle cx="256" cy="278" r="72" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.55)" stroke-width="10"/>
+  <circle cx="256" cy="278" r="46" fill="rgba(255,255,255,0.20)"/>
+  <circle cx="256" cy="278" r="22" fill="white" opacity="0.9"/>
+
+  <!-- Camera bump/notch -->
+  <rect x="192" y="148" width="128" height="36" rx="18" fill="rgba(255,255,255,0.30)" stroke="rgba(255,255,255,0.5)" stroke-width="8"/>
+
+  <!-- Flash dot -->
+  <circle cx="362" cy="200" r="14" fill="rgba(255,255,255,0.75)"/>
+
+  <!-- Math symbols overlaid bottom-right -->
+  <rect x="290" y="320" width="164" height="68" rx="16" fill="rgba(11,7,20,0.55)"/>
+  <text x="372" y="368" font-size="42" font-family="'SF Pro Display',Arial,sans-serif" font-weight="900" text-anchor="middle" fill="white">x²+∫</text>
+</svg>

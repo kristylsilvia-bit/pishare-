@@ -1,0 +1,19 @@
+{
+  "name": "MathSnap AI",
+  "short_name": "MathSnap",
+  "description": "Solve any math problem — snap a photo or type it in",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0A0F",
+  "theme_color": "#7C3AED",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
