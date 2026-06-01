@@ -1,4 +1,4 @@
-const CACHE = 'mathsnap-v4';
+const CACHE = 'mathsnap-v5';
 const STATIC = [
   '/',
   '/index.html',
